@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <h1 style="text-align: center;">🎯 Hướng dẫn tạo ứng dụng Todo List bằng HTML, CSS và JavaScript</h1>
+    <p style="font-size: 25px; text-align:justify ;">Việc tạo một ứng dụng Todo List là một bài tập tuyệt vời giúp bạn
+        làm quen với cách kết hợp HTML, CSS và
+        JavaScript để xử lý tương tác người dùng và cập nhật giao diện động. Bài viết này sẽ hướng dẫn bạn từng bước, từ
+        xây dựng giao diện đến xử lý logic bằng JavaScript.
+    </p>
+    <hr>
+    <h2>🔧 Bước 1: Tạo giao diện HTML cơ bản</h2>
+    <p style="font-size: 25px; text-align:justify ;">Đầu tiên, chúng ta tạo một file HTML để định nghĩa cấu trúc giao
+        diện của ứng dụng.
+    </p>
+    <pre>
+        <code class="language-html">
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="en"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;title&gt;Todo List&lt;/title&gt;
+                &lt;link rel="stylesheet" href="style.css"&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;div class="container"&gt;
+                    &lt;h1&gt;Todo List&lt;/h1&gt;
+                    &lt;input type="text" id="taskInput" placeholder="Thêm công việc mới..."&gt;
+                    &lt;button id="addTaskBtn"&gt;Thêm&lt;/button&gt;
+                    &lt;ul id="taskList"&gt;&lt;/ul&gt;
+                &lt;/div&gt;
+                &lt;script src="script.js"&gt;&lt;/script&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </code>
+    </pre>
+    <p style="font-size: 25px; text-align:justify ;">🔍 Giải thích:</p>
+        <ul>
+            <li style="font-size: 25px; text-align:justify ;"><code class="language-html">Input</code> dùng để người dùng nhập công việc.</li>
+            <li style="font-size: 25px; text-align:justify ;"><code class="language-html">Button</code> để thêm việc vào danh sách.</li>
+            <li style="font-size: 25px; text-align:justify ;"><code class="language-html">ul#todo-list</code> là nơi hiển thị danh sách các công việc.</li>
+        </ul>
+        <hr>
+    <h2>🎨 Bước 2: Thêm CSS để tạo kiểu cho ứng dụng</h2>
+    <p style="font-size: 25px; text-align:justify ;">Tạo một file tên style.css để thêm một chút màu sắc và căn chỉnh.</p>
+    <pre>
+        <code class="language-css">
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+
+            .input-section {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            #todo-input {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+            #add-btn {
+                padding: 10px 15px;
+                background: #28a745;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            #add-btn:hover {
+                background: #218838;
+            }
+
+            #todo-list {
+                list-style: none;
+                padding: 0;
+            }
+
+            #todo-list li {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+
+            #todo-list li:last-child {
+                border-bottom: none;
+            }
+        </code>
+    </pre>
+    <p style="font-size: 25px; text-align:justify ;">🔍 Giải thích:</p>
+        <ul>
+            <li style="font-size: 25px; text-align:justify ;">Giao diện được căn giữa và có khối chứa chính <code class="language-css">.container</code>.</li>
+            <li style="font-size: 25px; text-align:justify ;">Nút "Thêm" và các phần tử danh sách được thiết kế để dễ đọc, dễ dùng.</li>
+            <li style="font-size: 25px; text-align:justify ;">Mỗi li có nút xoá riêng bên phải.</li>
+        </ul>
+        <hr>
+    <h2>🛠️ Bước 3: Thêm JavaScript để xử lý logic</h2>
+    <p style="font-size: 25px; text-align:justify ;">Cuối cùng, chúng ta sẽ thêm logic JavaScript để xử lý việc thêm và
+        xóa công việc.</p>
+    <pre>
+        <code class="language-js">
+            const taskInput = document.getElementById('taskInput');
+            const addTaskBtn = document.getElementById('addTaskBtn');
+            const taskList = document.getElementById('taskList');
+
+            addTaskBtn.addEventListener('click', function() {
+                const taskText = taskInput.value;
+                if (taskText) {
+                    const li = document.createElement('li');
+                    li.textContent = taskText;
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Xoá';
+                    deleteBtn.style.marginLeft = '10px';
+                    deleteBtn.addEventListener('click', function() {
+                        taskList.removeChild(li);
+                    });
+
+                    li.appendChild(deleteBtn);
+                    taskList.appendChild(li);
+                    taskInput.value = '';
+                }
+            });
+        </code>
+    </pre>
+    <p style="font-size: 25px; text-align:justify ;">🔍 Giải thích:</p>
+        <ul>
+            <li style="font-size: 25px; text-align:justify ;">Khi nhấn nút "Thêm", một công việc mới sẽ được thêm vào danh sách.</li>
+            <li style="font-size: 25px; text-align:justify ;">Mỗi công việc có nút "Xoá" để xóa công việc đó khỏi danh sách.</li>
+        </ul>
+        <hr>
+    <h2>🚀 Kết luận</h2>
+    <p style="font-size: 25px; text-align:justify ;">Chúng ta đã hoàn thành việc xây dựng một ứng dụng Todo List đơn giản bằng HTML, CSS và JavaScript. Ứng dụng cho phép người dùng thêm và xóa công việc một cách dễ dàng.</p> 
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
+</body>
+
+</html>

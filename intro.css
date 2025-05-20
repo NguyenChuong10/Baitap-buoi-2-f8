@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.content{
+    width :70%;
+    height: 200px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: justify;
+    background-color: white;
+    
+}
+.experience{
+    text-align:justify; /*căn bên trái nội dung*/
+    margin : 0px 200px 0px 200px; /*khoảng cách trái phải*/
+    background-color: aqua;
+    border: 20px;
+    border-style: solid;/* kiểu đường viền */
+    border-color: gold;/* màu đường viền */
+    border-radius: 20px; /* bo góc */
+    padding: 20px; /* khoảng cách giữa nội dung và đường viền */
+}
+.contact{
+    text-align:justify; /*căn bên trái nội dung*/
+    margin : 0px 200px 0px 200px; /*khoảng cách trái phải*/
+    background-color: aqua;
+    border: 20px;
+    border-style: solid;/* kiểu đường viền */
+    border-color: silver;/* màu đường viền */
+    border-radius: 20px; /* bo góc */
+    padding: 20px; /* khoảng cách giữa nội dung và đường viền */
+}
